@@ -4,67 +4,109 @@ let getComputerChoice = function() {
   return choices[i];
 };
 
-let getHumanChoice = function() {
-  let choice = prompt("Please enter your choice (rock, paper, or scissors):");
-  return choice;
+let playRound = function(humanChoice, computerChoice) {
+  let choices = humanChoice.toLowerCase() + "-" + computerChoice.toLowerCase();
+  let p1 = document.querySelector("#result-line1");
+  let p2 = document.querySelector("#result-line2");
+  console.log("You chose " + humanChoice + ", Computer chose " + computerChoice);
+  switch (choices) {
+    case "rock-rock":
+      p1.textContent = "You chose rock. Computer chose rock."
+      p2.textContent = "It's a tie! No points awarded to anyone.";
+      break;
+    case "rock-paper":
+      p1.textContent = "You chose rock. Computer chose paper."
+      p2.textContent = "You lost the round! Computer gets +1 point.";
+      computerScore++;
+      break;
+    case "rock-scissors":
+      p1.textContent = "You chose rock. Computer chose scissors."
+      p2.textContent = "You won the round! You get +1 point.";
+      humanScore++;
+      break;
+    case "paper-rock":
+      p1.textContent = "You chose paper. Computer chose rock."
+      p2.textContent = "You won the round! You get +1 point.";
+      humanScore++;
+      break;
+    case "paper-paper":
+      p1.textContent = "You chose paper. Computer chose paper."
+      p2.textContent = "It's a tie! No points awarded to anyone.";
+      break;
+    case "paper-scissors":  
+      p1.textContent = "You chose paper. Computer chose scissors."
+      p2.textContent = "You lost the round! Computer gets +1 point.";
+      computerScore++;
+      break;
+    case "scissors-rock":
+      p1.textContent = "You chose scissors. Computer chose rock."
+      p2.textContent = "You lost the round! Computer gets +1 point.";
+      computerScore++;
+      break;
+    case "scissors-paper":
+      p1.textContent = "You chose scissors. Computer chose paper."
+      p2.textContent = "You won the round! You get +1 point.";
+      humanScore++;
+      break;
+    case "scissors-scissors":
+      p1.textContent = "You chose scissors. Computer chose scissors."
+      p2.textContent = "It's a tie! No points awarded to anyone.";
+      break;
+    default:
+      round_result.textContent = "Invalid move detected";
+  }
 };
 
 let humanScore = 0;
 let computerScore = 0;
 
-let playRound = function(humanChoice, computerChoice) {
-  let choices = humanChoice.toLowerCase() + "-" + computerChoice.toLowerCase();
+let rock_button = document.querySelector("#rock");
+rock_button.addEventListener("click", () => {
+  playRound("rock", getComputerChoice());
+  let human_score_node = document.querySelector("#player-score");
+  let computer_score_node = document.querySelector("#computer-score");
 
-  console.log("You chose " + humanChoice + ", Computer chose " + computerChoice);
-  switch (choices) {
-    case "rock-rock":
-      console.log("Game tied! No points awarded to anyone.");
-      break;
-    case "rock-paper":
-      console.log("You lost! Computer gets 1 point.");
-      computerScore++;
-      break;
-    case "rock-scissors":
-      console.log("You won! You get 1 point.");
-      humanScore++;
-      break;
-    case "paper-rock":
-      console.log("You won! You get 1 point.");
-      humanScore++;
-      break;
-    case "paper-paper":
-      console.log("Game tied! No points awarded to anyone.");
-      break;
-    case "paper-scissors":  
-      console.log("You lost! Computer gets 1 point.");
-      computerScore++;
-      break;
-    case "scissors-rock":
-      console.log("You lost! Computer gets 1 point.");
-      computerScore++;
-      break;
-    case "scissors-paper":
-      console.log("You won! You get 1 point.");
-      humanScore++;
-      break;
-    case "scissors-scissors":
-      console.log("Game tied! No points awarded to anyone.");
-      break;
-    default:
-      console.log("Invalid move detected, please input one of (rock, paper, scissors)");
+  human_score_node.textContent = "Player: " + humanScore;
+  computer_score_node.textContent = "Computer: " + computerScore; 
+
+  let winner = document.querySelector("#winner");
+  if (humanScore == 5) {
+    winner.textContent = "You won! Congratulations!";
+  } else if (computerScore == 5) {
+    winner.textContent = "The computer won! Better luck next time!";
   }
-};
+});
 
-while (humanScore < 5 && computerScore < 5) {
-  let humanChoice = getHumanChoice();
-  let computerChoice = getComputerChoice();
+let paper_button = document.querySelector("#paper");
+paper_button.addEventListener("click", () => {
+  playRound("paper", getComputerChoice());
+  let human_score_node = document.querySelector("#player-score");
+  let computer_score_node = document.querySelector("#computer-score");
+  
+  human_score_node.textContent = "Player: " + humanScore;
+  computer_score_node.textContent = "Computer: " + computerScore; 
 
-  playRound(humanChoice, computerChoice);
-  console.log("\n\n");
-  console.log("Current Scoreboard");
-  console.log("####################");
-  console.log("human: " + humanScore + " computer: " + computerScore);
-  console.log("\n\n");
-}
+  let winner = document.querySelector("#winner");
+  if (humanScore == 5) {
+    winner.textContent = "You won! Congratulations!";
+  } else if (computerScore == 5) {
+    winner.textContent = "The computer won! Better luck next time!";
+  }
+});
 
-console.log((humanScore == 5) ? "You won, congratulations!" : "The Computer won, better luck next time!");
+let scissors_button = document.querySelector("#scissors");
+scissors_button.addEventListener("click", () => {
+  playRound("scissors", getComputerChoice());
+  let human_score_node = document.querySelector("#player-score");
+  let computer_score_node = document.querySelector("#computer-score");
+
+  human_score_node.textContent = "Player: " + humanScore;
+  computer_score_node.textContent = "Computer: " + computerScore; 
+
+  let winner = document.querySelector("#winner");
+  if (humanScore == 5) {
+    winner.textContent = "You won! Congratulations!";
+  } else if (computerScore == 5) {
+    winner.textContent = "The computer won! Better luck next time!";
+  }
+});
